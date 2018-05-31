@@ -23,6 +23,12 @@ export default class AppFooter extends Component {
             </Button>
             <Button
               active={this.props.navigation.state.index === 2}
+              onPress={() => this.props.navigation.navigate('MapPage')}
+            >
+              <Icon name="compass" />
+            </Button>
+            <Button
+              active={this.props.navigation.state.index === 3}
               onPress={() => this.props.navigation.navigate('ProfilePage')}
             >
               <Icon name="person" />
