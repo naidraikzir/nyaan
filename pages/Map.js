@@ -7,18 +7,24 @@ export default class Map extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      latitude: 0,
-      longitude: 0,
+      region: {
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      },
     };
   }
 
   componentWillMount() {
     navigator.geolocation.getCurrentPosition(
       loc => {
-        this.setState({
-          latitude: loc.coords.latitude,
-          longitude: loc.coords.longitude,
-        });
+        this.setState((prevState, props) => ({
+          region: Object.assign(prevState.region, {
+            latitude: loc.coords.latitude,
+            longitude: loc.coords.longitude,
+          }),
+        }));
       },
       err => console.error(err),
       {
@@ -34,12 +40,7 @@ export default class Map extends Component {
         <MapView
           provider={PROVIDER_GOOGLE}
           style={styles.map}
-          region={{
-            latitude: this.state.latitude,
-            longitude: this.state.longitude,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.0121,
-          }}
+          region={this.state.region}
         />
       </View>
     );

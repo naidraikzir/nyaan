@@ -12,7 +12,12 @@ console.ignoredYellowBox = ['Remote debugger'];
 export default (MainNavigator = createBottomTabNavigator(
   {
     HomePage,
-    CameraPage,
+    CameraPage: {
+      screen: CameraPage,
+      navigationOptions: ({ navigation }) => ({
+        tabBarVisible: false,
+      }),
+    },
     MapPage,
     ProfilePage,
   },
